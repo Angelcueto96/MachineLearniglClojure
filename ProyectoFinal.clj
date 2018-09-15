@@ -1,3 +1,4 @@
+
 (slurp "test.csv")
 (with-open [rdr (clojure.java.io/reader "test.csv")]
  (def data (reduce conj [] (line-seq rdr)) )
@@ -5,11 +6,14 @@
  
 )
 ;;Data Vector with lists in it
-(def dataList (into [] (partition 1 data)))
+
+(def dataList (into [] (partition 1  data)))
   ;;(println )
 ;;Data Vector with Vectors in it
 (def dataVector (mapv vec dataList))
 ;;(println (get dataVector 1))
+
+
 
 
 ;;Recives a vector with a single string and returns a vector with multiple data
@@ -42,8 +46,21 @@
     )
   )
 )
-(println dataStructure)
+;;(doseq [n dataStructure]
+ ;; (println n)
+;;)
 
-;;(println (get dataStructure 1))
-
-;;(splitString (get dataVector 1))
+(defn compare[tupple]
+    
+    (def sentiment (get tupple 0))
+    (= sentiment "positive")
+    ;;(println sentiment)
+  
+    
+)
+(def positive 
+  (into[]
+    (filter compare dataStructure)
+  )
+)
+(println positive)
