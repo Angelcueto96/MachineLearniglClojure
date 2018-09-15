@@ -9,7 +9,7 @@
   ;;(println )
 ;;Data Vector with Vectors in it
 (def dataVector (mapv vec dataList))
-(println (get dataVector 1))
+;;(println (get dataVector 1))
 
 
 ;;Recives a vector with a single string and returns a vector with multiple data
@@ -20,19 +20,30 @@
   
 )
 
-(def a
+(def dataStructure
   (into []
     (map ( fn[data]
-          
+             
           (splitString data)
+        
+          ;;decide which filds to add
+          ;;assoc to replace string value
+          (def add1 (assoc data 0  ( get tempVector 1)) ) 
+          ;;conj to append data    
+          (def add2 (conj add1 (get tempVector 5)) )
 
-          (def add1 (assoc data 0  ( get tempVector 0)) )     
-          (def add2 (conj add1 (get tempVector 1)) )
-          (conj add2 (get tempVector 2))
+          ;;need to finish withour def statement
+          ;;cleaning Date
+
+          (conj add2 (get tempVector 12))
         
         )  
       dataVector
     )
   )
 )
-(println a)
+(println dataStructure)
+
+;;(println (get dataStructure 1))
+
+;;(splitString (get dataVector 1))
