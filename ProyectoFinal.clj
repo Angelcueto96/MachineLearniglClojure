@@ -27,18 +27,13 @@
 (def dataStructure
   (into []
     (map ( fn[data]
-             
           (splitString data)
-        
           ;;decide which filds to add
           ;;assoc to replace string value
           (def add1 (assoc data 0  ( get tempVector 1)) ) 
           ;;conj to append data    
           (def add2 (conj add1 (get tempVector 5)) )
-
           ;;need to finish withour def statement
-          ;;cleaning Date
-
           (conj add2 (get tempVector 12))
         
         )  
@@ -60,7 +55,34 @@
 )
 (def positive 
   (into[]
-    (filter compare dataStructure)
+    (filter ( fn [data]
+            (def sentiment (get data 0))
+            (= sentiment "positive")
+            ) dataStructure)
   )
 )
 (println positive)
+
+
+(def negative 
+  (into[]
+    (filter ( fn [data]
+            (def sentiment (get data 0))
+            (= sentiment "negative")
+            ) dataStructure)
+  )
+)
+(println negative)
+
+(def neutral
+  (into[]
+    (filter ( fn [data]
+            (def sentiment (get data 0))
+            (= sentiment "neutral")
+            ) dataStructure)
+  )
+)  
+
+(println neutral)
+
+
