@@ -1,4 +1,3 @@
-
 (slurp "googleplaystore.txt")
 (with-open [rdr (clojure.java.io/reader "googleplaystore.txt")]
  (def data (reduce conj [] (line-seq rdr)) )
@@ -54,8 +53,8 @@
 (def paidApps 
   (into[]
     (filter ( fn [data]
-            (def type (get data 6))
-            (= type "Paid")
+            (def _type (get data 6))
+            (= _type "Paid")
             ) dataStructure)
   )
 )
@@ -99,14 +98,15 @@
 ;;(def totalReviews (conj (vector-of :int) ReviewsNumber) )
 
 
-(def vec [])
+(def a [])
 ;;(def x (atom 0))
 (doseq [n ReviewsNumber]
   ;;(println @x)
-  (def vec (conj vec ( Integer/parseInt (get n 0) )) )
+  (def a (conj a ( Integer/parseInt (get n 0) )) )
   ;;(swap! x inc)
   )
 
-(def totalReviews (reduce + vec) )
+;;Reduce Operation
+(def totalReviews (reduce + a) )
 ;;(println totalReviews)
 
