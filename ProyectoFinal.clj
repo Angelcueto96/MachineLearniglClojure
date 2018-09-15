@@ -1,21 +1,24 @@
 
-(slurp "googleplaystore.csv")
-(with-open [rdr (clojure.java.io/reader "googleplaystore.csv")]
+(slurp "googleplaystore.txt")
+(with-open [rdr (clojure.java.io/reader "googleplaystore.txt")]
  (def data (reduce conj [] (line-seq rdr)) )
   ;;(println data)
 )
 
+
 ;;Data Vector with lists in it
 (def dataList (into [] (partition 1  data)))
+
 ;;Data Vector with Vectors in it
 (def dataVector (mapv vec dataList))
+
 ;;(println (get dataVector 1))
 
 
 ;;Recives a vector with a single string and returns a vector with multiple data
 (defn splitString[_vector] 
   (def temp (get _vector 0))
-  (def tempVector (clojure.string/split (apply str temp) #","))
+  (def tempVector (clojure.string/split (apply str temp) #"\t"))
   
 )
 
@@ -45,7 +48,7 @@
     )
   )
 )
-;; (doseq [n dataStructure] (println n) )
+;;(doseq [n dataStructure] (println n) )
 
 ;;Filter Operations
 (def paidApps 
@@ -67,3 +70,43 @@
   )
 )
 ;;(println gameApps)
+
+;; Map operations
+(def appNamesOnly
+  (into []
+    (map (fn [data]
+      (subvec data 0 1)
+    )
+    dataStructure
+    )
+  )
+)
+;;(println appNamesOnly)
+
+;;Map and reduce Operation
+(def reviewsOnly
+  (into []
+    (map (fn [data]
+      (subvec data 3 4) 
+    )
+    dataStructure
+    )
+  )
+)
+;;(println reviewsOnly)
+(def ReviewsNumber (subvec reviewsOnly 1) )
+;;(println ReviewsNumber)
+;;(def totalReviews (conj (vector-of :int) ReviewsNumber) )
+
+
+(def vec [])
+;;(def x (atom 0))
+(doseq [n ReviewsNumber]
+  ;;(println @x)
+  (def vec (conj vec ( Integer/parseInt (get n 0) )) )
+  ;;(swap! x inc)
+  )
+
+(def totalReviews (reduce + vec) )
+;;(println totalReviews)
+
