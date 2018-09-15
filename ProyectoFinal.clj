@@ -7,12 +7,9 @@
 
 ;;Data Vector with lists in it
 (def dataList (into [] (partition 1  data)))
-  ;;(println )
 ;;Data Vector with Vectors in it
 (def dataVector (mapv vec dataList))
 ;;(println (get dataVector 1))
-
-
 
 
 ;;Recives a vector with a single string and returns a vector with multiple data
@@ -20,15 +17,13 @@
   (def temp (get _vector 0))
   (def tempVector (clojure.string/split (apply str temp) #","))
   
-  
 )
 
 (def dataStructure
   (into []
     (map ( fn[data]
           (splitString data)
-          ;;decide which filds to add
-          ;;assoc to replace string value
+          ;;assoc to replace previous string value
           (def add0 (assoc data 0  ( get tempVector 0)) ) 
           ;;conj to append data    
           (def add1 (conj add0 (get tempVector 1)))
@@ -50,48 +45,25 @@
     )
   )
 )
-(doseq [n dataStructure]
- (println n)
-)
+;; (doseq [n dataStructure] (println n) )
 
-(defn compare[tupple]
-    
-    (def sentiment (get tupple 0))
-    (= sentiment "positive")
-    ;;(println sentiment)
-  
-    
-)
-(def positive 
+;;Filter Operations
+(def paidApps 
   (into[]
     (filter ( fn [data]
-            (def sentiment (get data 0))
-            (= sentiment "positive")
+            (def type (get data 6))
+            (= type "Paid")
             ) dataStructure)
   )
 )
-;;(println positive)
+;;(println paidApps)
 
-
-(def negative 
+(def gameApps 
   (into[]
     (filter ( fn [data]
-            (def sentiment (get data 0))
-            (= sentiment "negative")
+            (def category  (get data 1))
+            (= category "GAME")
             ) dataStructure)
   )
 )
-;;(println negative)
-
-(def neutral
-  (into[]
-    (filter ( fn [data]
-            (def sentiment (get data 0))
-            (= sentiment "neutral")
-            ) dataStructure)
-  )
-)  
-
-;;(println neutral)
-
-
+;;(println gameApps)
